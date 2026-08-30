@@ -1,22 +1,17 @@
-# Shoply — React + Tailwind Ecommerce Storefront
+# Ariesly — E-Commerce Storefront
 
-A storefront homepage built with **React**, **Tailwind CSS**, and **Vite**, featuring a frosted-glass navbar (inspired by Vila Magenta) that starts transparent over the hero and turns into a solid frosted panel on scroll.
+A modern, responsive e-commerce website built with React, Tailwind CSS, and Vite. Ariesly provides users with a simple shopping experience for discovering products, browsing categories, managing their cart, and checking out.
 
-## Getting started
+## ✨ Features
 
-```bash
-npm install
-npm run dev
-```
-
-Then open the local URL Vite prints (usually http://localhost:5173).
-
-To build for production:
-
-```bash
-npm run build
-npm run preview
-```
+- **Dynamic Product Catalog:** Browse products across multiple categories (Men, Women, Accessories, Shoes, Bags).
+- **Cart & Wishlist:** Add items to your cart, adjust quantities, and save favorites to your wishlist.
+- **Currency Switching:** Seamlessly switch between USD ($) and Philippine Pesos (₱) with real-time price formatting.
+- **Search & Filtering:** Instantly search products or filter by category.
+- **Secure Checkout:** A clean, responsive checkout flow with an order summary.
+- **User Profile:** Built-in user profile modal to manage customer details.
+- **Responsive Design:** Fully optimized for mobile, tablet, and desktop devices.
+- **Glassmorphism UI:** Features a sleek, frosted-glass navbar that transitions on scroll.
 
 ## Project structure
 
@@ -40,16 +35,11 @@ src/
 tailwind.config.js
 ```
 
-## Customizing
 
-- **Products**: edit `src/data/products.js`. Swap the `emoji`/`bg` placeholders with a real `image` URL and update `ProductCard.jsx` to render an `<img>` instead of the emoji once you have real product photos.
-- **Colors**: the `ink` color (near-black) and blue accent are used throughout — change them in `tailwind.config.js` and swap `bg-blue-*` classes.
-- **Navbar glass effect**: in `Navbar.jsx`, the `scrolled` state (from a scroll listener) toggles between a transparent `bg-white/10 backdrop-blur-md` look and a solid `bg-white/70 backdrop-blur-xl` look — tweak the opacity/blur values to taste.
-- **Cart & wishlist**: state is lifted to `App.jsx` (`cart`, `wishlist`) and passed down as props — there's no backend yet, so "Add to Cart" just increments a local counter. Wire this up to a real cart/checkout flow when you're ready.
+## 🛠️ Tech Stack
 
-## Tech stack
-
-- React 19
-- Tailwind CSS 3
-- Vite 8
-- lucide-react (icons)
+- **Frontend:** React 19
+- **Styling:** Tailwind CSS
+- **Build Tool:** Vite
+- **Icons:** Lucide React
+- **Routing:** State-based navigation (no external router required)
