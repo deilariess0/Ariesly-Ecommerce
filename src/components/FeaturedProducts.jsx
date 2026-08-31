@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 import { products } from "../data/products";
 
-export default function FeaturedProducts({ wishlist, onToggleWishlist, onAddToCart, onViewAll, currency, formatPrice }) {
+export default function FeaturedProducts({ wishlist, onToggleWishlist, onAddToCart, onViewAll, currency, formatPrice, onViewProduct }) {
   // Only show the first 5 products on the homepage
   const featuredProducts = products.slice(0, 5);
 
@@ -34,6 +34,7 @@ export default function FeaturedProducts({ wishlist, onToggleWishlist, onAddToCa
               onAddToCart={onAddToCart}
               currency={currency}
               formatPrice={formatPrice}
+              onViewProduct={onViewProduct} // <-- ADDED
             />
           </div>
         ))}

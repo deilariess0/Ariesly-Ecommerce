@@ -16,7 +16,8 @@ export default function ShopPage({
   searchQuery,
   setSearchQuery,
   currency,
-  formatPrice
+  formatPrice,
+  onViewProduct // <-- ADDED
 }) {
   return (
     <section className="min-h-screen bg-white pt-10 pb-20">
@@ -96,8 +97,9 @@ export default function ShopPage({
                 isWishlisted={wishlist.includes(product.id)}
                 onToggleWishlist={onToggleWishlist}
                 onAddToCart={onAddToCart}
-                currency={currency}         // <-- Passed down
-                formatPrice={formatPrice}   // <-- Passed down
+                currency={currency}
+                formatPrice={formatPrice}
+                onViewProduct={onViewProduct} // <-- ADDED
               />
             ))
           ) : (

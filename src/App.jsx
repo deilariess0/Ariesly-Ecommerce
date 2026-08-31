@@ -14,6 +14,7 @@ import CustomerProfile from "./components/CustomerProfile";
 import CheckoutPage from "./components/CheckoutPage";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import ProductDetail from "./components/ProductDetail"; // <-- ADDED IMPORT
 import { products } from "./data/products";
 
 // Correct Import Path for the Image
@@ -24,6 +25,9 @@ export default function App() {
   const [wishlist, setWishlist] = useState([]);
   const [currentPage, setCurrentPage] = useState("home");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  // NEW: State for Product Detail Page
+  const [selectedProductId, setSelectedProductId] = useState(null);
   
   // State for search
   const [searchQuery, setSearchQuery] = useState("");
@@ -88,6 +92,12 @@ export default function App() {
     return result;
   }, [selectedCategory, searchQuery]);
 
+  // Function to open Product Detail Page
+  const handleViewProduct = (id) => {
+    setSelectedProductId(id);
+    setCurrentPage("product");
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar 
@@ -118,13 +128,11 @@ export default function App() {
         }}
       />
       
-      {/* Conditional Rendering: Home, Shop, About, Contact, or Checkout */}
+      {/* Conditional Rendering: Home, Shop, About, Contact, Product, or Checkout */}
       {currentPage === "home" ? (
         <>
-          {/* FIXED: Added onNavigate to Hero */}
           <Hero onNavigate={setCurrentPage} />
           
-          {/* UPDATED: Added formatPrice to Features */}
           <Features formatPrice={formatPrice} />
           
           <FeaturedProducts 
@@ -137,6 +145,7 @@ export default function App() {
             }}
             currency={currency}       
             formatPrice={formatPrice} 
+            onViewProduct={handleViewProduct}
           />
           <PromoBanners />
           <Testimonials />
@@ -153,6 +162,17 @@ export default function App() {
           onSelectCategory={setSelectedCategory}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          currency={currency}
+          formatPrice={formatPrice}
+          onViewProduct={handleViewProduct}
+        />
+      ) : currentPage === "product" ? (
+        <ProductDetail 
+          productId={selectedProductId}
+          onBack={() => setCurrentPage("shop")}
+          onAddToCart={addToCart}
+          onToggleWishlist={toggleWishlist}
+          wishlist={wishlist}
           currency={currency}
           formatPrice={formatPrice}
         />

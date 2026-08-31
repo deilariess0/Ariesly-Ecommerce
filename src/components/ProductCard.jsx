@@ -1,14 +1,17 @@
 import { Heart, ShoppingCart, Star } from "lucide-react";
 
-export default function ProductCard({ product, isWishlisted, onToggleWishlist, onAddToCart, currency, formatPrice }) {
+export default function ProductCard({ product, isWishlisted, onToggleWishlist, onAddToCart, currency, formatPrice, onViewProduct }) {
   const { id, name, price, originalPrice, rating, reviews, image, badge } = product;
   const fullStars = Math.floor(rating);
   const hasHalf = rating % 1 !== 0;
 
   return (
     <div className="group bg-white rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-      {/* Image Area */}
-      <div className="relative aspect-square bg-gray-100 overflow-hidden">
+      {/* Clickable Image */}
+      <div 
+        onClick={() => onViewProduct(id)}
+        className="relative aspect-square bg-gray-100 overflow-hidden cursor-pointer"
+      >
         {badge && (
           <span className="absolute top-3 left-3 z-10 bg-gray-900 text-white text-[11px] font-bold px-2 py-1 rounded-md">
             {badge}
@@ -17,7 +20,10 @@ export default function ProductCard({ product, isWishlisted, onToggleWishlist, o
         
         {/* Wishlist Heart */}
         <button
-          onClick={() => onToggleWishlist(id)}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevents the click from opening the detail page
+            onToggleWishlist(id);
+          }}
           className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md hover:scale-110 transition-transform"
           aria-label="Toggle wishlist"
         >
@@ -27,7 +33,6 @@ export default function ProductCard({ product, isWishlisted, onToggleWishlist, o
           />
         </button>
 
-        {/* Real Product Image */}
         <img
           src={image}
           alt={name}
@@ -37,7 +42,13 @@ export default function ProductCard({ product, isWishlisted, onToggleWishlist, o
 
       {/* Product Details */}
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-sm font-semibold text-gray-900 truncate mb-1">{name}</h3>
+        {/* Clickable Name */}
+        <h3 
+          onClick={() => onViewProduct(id)}
+          className="text-sm font-semibold text-gray-900 truncate mb-1 cursor-pointer hover:text-blue-600 transition-colors"
+        >
+          {name}
+        </h3>
 
         {/* Star Rating */}
         <div className="flex items-center gap-1 mb-2">
@@ -57,7 +68,6 @@ export default function ProductCard({ product, isWishlisted, onToggleWishlist, o
 
         {/* Price */}
         <div className="flex items-baseline gap-2 mb-4 mt-auto">
-          {/* UPDATED: Use formatPrice */}
           <span className="text-lg font-bold text-gray-900">
             {formatPrice(price)}
           </span>
