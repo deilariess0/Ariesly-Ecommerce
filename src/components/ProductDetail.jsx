@@ -1,17 +1,18 @@
 // src/components/ProductDetail.jsx
 import { useState, useEffect } from "react";
-import { ArrowLeft, Heart, ShoppingCart, Star, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Heart, ShoppingCart, Star, Minus, Plus, Lock, ArrowRight } from "lucide-react";
 import { products } from "../data/products";
+import ProductCard from "./ProductCard"; // <-- Import for "You Might Also Like"
 
-export default function ProductDetail({ productId, onBack, onAddToCart, onToggleWishlist, wishlist, currency, formatPrice }) {
+export default function ProductDetail({ productId, onBack, onAddToCart, onToggleWishlist, wishlist, currency, formatPrice, onCheckout, onViewProduct }) {
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(null); // Reserved for future gallery use
 
-  // Find the product from the ID passed in
   const product = products.find((p) => p.id === Number(productId));
 
+  // Get 4 other products to show below (exclude the current one)
+  const otherProducts = products.filter((p) => p.id !== Number(productId)).slice(0, 4);
+
   useEffect(() => {
-    // Scroll to top whenever the page changes
     window.scrollTo(0, 0);
     setQuantity(1);
   }, [productId]);
@@ -27,6 +28,13 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
   const fullStars = Math.floor(product.rating);
   const hasHalf = product.rating % 1 !== 0;
   const isWishlisted = wishlist.includes(product.id);
+
+  const handleCheckoutNow = () => {
+    for (let i = 0; i < quantity; i++) {
+      onAddToCart(product.id);
+    }
+    onCheckout();
+  };
 
   return (
     <section className="min-h-screen bg-white pt-10 pb-20">
@@ -106,31 +114,41 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
               <div className="flex items-center gap-3 border border-gray-300 rounded-full px-2 py-1">
                 <button 
                   onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
+                  className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100"
                 >
-                  <Minus size={16} />
+                  <Minus size={14} />
                 </button>
-                <span className="w-8 text-center font-semibold text-gray-900">{quantity}</span>
+                <span className="w-6 text-center font-semibold text-gray-900">{quantity}</span>
                 <button 
                   onClick={() => setQuantity((prev) => prev + 1)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
+                  className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100"
                 >
-                  <Plus size={16} />
+                  <Plus size={14} />
                 </button>
               </div>
             </div>
 
-            {/* Add to Cart Button */}
-            <button
-              onClick={() => {
-                for (let i = 0; i < quantity; i++) {
-                  onAddToCart(product.id);
-                }
-              }}
-              className="w-full sm:w-auto bg-gray-900 text-white px-10 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors text-lg"
-            >
-              <ShoppingCart size={20} /> Add to Cart
-            </button>
+            {/* Buttons: Side-by-side on ALL screens */}
+            <div className="flex flex-row gap-2 w-full">
+              
+              <button
+                onClick={() => {
+                  for (let i = 0; i < quantity; i++) {
+                    onAddToCart(product.id);
+                  }
+                }}
+                className="flex-1 bg-gray-100 text-gray-900 px-4 py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors text-sm"
+              >
+                <ShoppingCart size={16} /> Add to Cart
+              </button>
+
+              <button
+                onClick={handleCheckoutNow}
+                className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors text-sm"
+              >
+                <Lock size={16} /> Checkout
+              </button>
+            </div>
 
             {/* Description */}
             <div className="border-t border-gray-200 pt-6">
@@ -144,6 +162,46 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
             </div>
           </div>
         </div>
+
+        {/* "YOU MIGHT ALSO LIKE" SECTION AT THE BOTTOM */}
+        <div className="mt-16 border-t border-gray-200 pt-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">You Might Also Like</h2>
+            
+            <button
+              onClick={onBack}
+              className="hidden sm:flex items-center gap-1 text-sm font-semibold text-gray-900 hover:text-blue-600 hover:gap-2 transition-all"
+            >
+              View All Products <ArrowRight size={16} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+            {otherProducts.map((item) => (
+              <ProductCard
+                key={item.id}
+                product={item}
+                isWishlisted={wishlist.includes(item.id)}
+                onToggleWishlist={onToggleWishlist}
+                onAddToCart={onAddToCart}
+                currency={currency}
+                formatPrice={formatPrice}
+                onViewProduct={onViewProduct} // <-- Allows clicking to another product
+              />
+            ))}
+          </div>
+
+          {/* Mobile "View All" button */}
+          <div className="mt-8 sm:hidden">
+            <button 
+              onClick={onBack}
+              className="w-full flex items-center justify-center gap-2 border border-gray-300 text-gray-900 px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300"
+            >
+              View All Products <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
   );

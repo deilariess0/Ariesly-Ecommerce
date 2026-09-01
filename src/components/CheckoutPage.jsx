@@ -62,11 +62,13 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
   return (
     <section className="min-h-screen bg-white pt-10 sm:pt-20 pb-32 sm:pb-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
+        
+        {/* Back to Shop (Not Home) */}
         <button 
-          onClick={() => onNavigate("home")}
+          onClick={() => onNavigate("shop")}
           className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-600 mb-8"
         >
-          <ArrowLeft size={16} /> Back to Store
+          <ArrowLeft size={16} /> Back to Shop
         </button>
 
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-10">Checkout</h1>
@@ -74,7 +76,7 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
         <div className="grid lg:grid-cols-3 gap-10">
           {/* Shipping & Payment Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form id="checkout-form" onSubmit={handleSubmit} className="space-y-6">
               {/* Contact Info */}
               <div className="bg-gray-50 rounded-2xl p-4 sm:p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h2>
@@ -211,6 +213,7 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
 
               <button 
                 type="submit"
+                form="checkout-form" // <-- Connects to the form
                 onClick={handleSubmit}
                 className="w-full bg-gray-900 text-white py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors"
               >
@@ -230,6 +233,7 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
           </div>
           <button 
             type="submit"
+            form="checkout-form" // <-- Connects to the form
             onClick={handleSubmit}
             className="flex-1 max-w-xs bg-gray-900 text-white py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors"
           >

@@ -14,7 +14,7 @@ import CustomerProfile from "./components/CustomerProfile";
 import CheckoutPage from "./components/CheckoutPage";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import ProductDetail from "./components/ProductDetail"; // <-- ADDED IMPORT
+import ProductDetail from "./components/ProductDetail";
 import { products } from "./data/products";
 
 // Correct Import Path for the Image
@@ -175,6 +175,8 @@ export default function App() {
           wishlist={wishlist}
           currency={currency}
           formatPrice={formatPrice}
+          onCheckout={() => setCurrentPage("checkout")} // <-- ADDED THIS LINE
+          onViewProduct={handleViewProduct} // <-- ADDED THIS LINE
         />
       ) : currentPage === "about" ? (
         <About onNavigate={setCurrentPage} />
