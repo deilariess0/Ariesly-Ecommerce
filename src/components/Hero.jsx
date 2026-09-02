@@ -1,13 +1,40 @@
 import { useEffect, useState } from "react";
 
-export default function Hero({ onNavigate }) { // <-- Accept onNavigate
+export default function Hero({ onNavigate }) {
   const [loaded, setLoaded] = useState(false);
+  // State for the current background image index
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Array of 3 background images
+  const slides = [
+    {
+      url: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop", // Original
+      alt: "Fashion shopping bags"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop", // Clothing store interior
+      alt: "Clothing store"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop", // Fashion model
+      alt: "Fashion model"
+    }
+  ];
 
   useEffect(() => {
     // Triggers the animation after the component mounts
     const timer = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+    
+    // AUTO-SLIDE: Move to the next slide every 5 seconds
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(slideInterval);
+    };
+  }, [slides.length]);
 
   // Function to scroll to the Featured Products section
   const scrollToProducts = () => {
@@ -18,23 +45,34 @@ export default function Hero({ onNavigate }) { // <-- Accept onNavigate
   };
 
   return (
-    <section className="relative bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-24 grid lg:grid-cols-2 gap-10 items-center">
+    <section 
+      className="relative bg-white overflow-hidden bg-cover bg-center transition-all duration-1000 ease-in-out"
+      style={{
+        backgroundImage: `url('${slides[currentSlide].url}')`
+      }}
+    >
+      {/* Dark overlay to make white text pop */}
+      <div className="absolute inset-0 bg-black/40"></div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-24 grid lg:grid-cols-2 gap-10 items-center">
         
-        {/* Left Column: Text with Animations */}
+        {/* Left Column: Text (NO WHITE BACKGROUND) */}
         <div className="flex flex-col items-start">
+          
           <span 
-            className={`inline-block text-sm font-semibold tracking-widest uppercase text-blue-600 mb-4 transition-all duration-700 ease-out ${
+            className={`inline-block text-sm font-semibold tracking-widest uppercase text-white mb-4 transition-all duration-700 ease-out ${
               loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
+            style={{ textShadow: "0 2px 8px rgba(0, 0, 0, 0.9)" }}
           >
             New Collection
           </span>
           
           <h1 
-            className={`font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6 transition-all duration-700 delay-100 ease-out ${
+            className={`font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6 transition-all duration-700 delay-100 ease-out ${
               loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
+            style={{ textShadow: "0 4px 15px rgba(0, 0, 0, 0.8), 0 2px 5px rgba(0, 0, 0, 0.9)" }}
           >
             Find Everything
             <br />
@@ -42,9 +80,10 @@ export default function Hero({ onNavigate }) { // <-- Accept onNavigate
           </h1>
           
           <p 
-            className={`text-gray-600 max-w-md mb-8 text-lg leading-relaxed transition-all duration-700 delay-200 ease-out ${
+            className={`text-white max-w-md mb-8 text-lg leading-relaxed transition-all duration-700 delay-200 ease-out font-semibold ${
               loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
+            style={{ textShadow: "0 2px 10px rgba(0, 0, 0, 0.9), 0 2px 5px rgba(0, 0, 0, 0.8)" }}
           >
             Discover top-quality products at unbeatable prices. Shop the latest
             trends and get them delivered to your door.
@@ -55,61 +94,52 @@ export default function Hero({ onNavigate }) { // <-- Accept onNavigate
               loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            {/* UPDATED: Shop Now scrolls to #products */}
             <button
               onClick={scrollToProducts}
-              className="bg-gray-900 text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-black transition-colors shadow-lg"
+              className="bg-white text-gray-900 px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors shadow-lg"
             >
               Shop Now
             </button>
             
-            {/* UPDATED: Explore Categories still goes to Shop page */}
             <button
               onClick={() => onNavigate("shop")}
-              className="border border-gray-300 text-gray-900 px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-gray-50 transition-colors"
+              className="bg-transparent border-2 border-white text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-white hover:text-gray-900 transition-colors shadow-md"
             >
               Explore Categories
             </button>
           </div>
-          
-          {/* Slider dots */}
-          <div 
-            className={`flex gap-2 mt-10 transition-all duration-700 delay-500 ease-out ${
-              loaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <span className="h-1.5 w-8 rounded-full bg-gray-900 transition-all" />
-            <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-            <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-          </div>
         </div>
 
-        {/* Right Column: Image & Badge with Animations */}
-        <div className="relative flex justify-center lg:justify-end">
-          <div className={`relative w-full max-w-lg transition-all duration-1000 delay-200 ease-out ${
+        {/* Right Column: Large Text */}
+        <div className="relative hidden lg:flex justify-center items-center pointer-events-none select-none">
+          <div className={`transition-all duration-1000 delay-200 ease-out ${
             loaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
           }`}>
-            
-            {/* 
-              UPDATED IMAGE: This matches the beige/tan bag style from your design.
-            */}
-            <img
-              src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=1000&auto=format&fit=crop"
-              alt="Featured Collection"
-              className="w-full h-auto object-cover rounded-3xl shadow-xl"
-            />
-
-            {/* 50% Off Badge with Pop Animation */}
-            <div className={`absolute -top-6 -right-4 sm:-right-6 w-24 h-24 rounded-full bg-blue-600 text-white flex flex-col items-center justify-center text-center shadow-xl rotate-12 transition-all duration-700 delay-500 ease-out ${
-              loaded ? "opacity-100 scale-100" : "opacity-0 scale-0"
-            }`}>
-              <span className="text-[10px] font-medium leading-none uppercase">Up to</span>
-              <span className="text-2xl font-extrabold leading-tight">50%</span>
-              <span className="text-[10px] font-medium leading-none uppercase">Off</span>
-            </div>
+            <h2 
+              className="font-display text-[12rem] leading-none font-bold text-white/90 tracking-tighter"
+              style={{ 
+                textShadow: "0 8px 25px rgba(0, 0, 0, 0.8)" 
+              }}
+            >
+              ARIESLY.
+            </h2>
           </div>
         </div>
 
+      </div>
+
+      {/* Slider Dots - Located at the bottom left/center to navigate manually */}
+      <div className="relative flex justify-center gap-2 pb-8">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              currentSlide === index ? "w-8 bg-white" : "w-1.5 bg-gray-300 hover:bg-white"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
