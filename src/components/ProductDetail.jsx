@@ -4,7 +4,7 @@ import { ArrowLeft, Heart, ShoppingCart, Star, Minus, Plus, Lock, ArrowRight } f
 import { products } from "../data/products";
 import ProductCard from "./ProductCard";
 
-export default function ProductDetail({ productId, onBack, onAddToCart, onToggleWishlist, wishlist, currency, formatPrice, onCheckout, onViewProduct }) {
+export default function ProductDetail({ productId, onBack, onAddToCart, onToggleWishlist, wishlist, currency, formatPrice, onCheckout, onViewProduct, onViewAll }) {
   const [quantity, setQuantity] = useState(1);
 
   const product = products.find((p) => p.id === Number(productId));
@@ -12,7 +12,6 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
   const otherProducts = products.filter((p) => p.id !== Number(productId)).slice(0, 4);
 
   useEffect(() => {
-    // INSTANT jump to top (no animation!)
     window.scrollTo({ top: 0, behavior: "instant" }); 
     setQuantity(1);
   }, [productId]);
@@ -159,7 +158,7 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
             <h2 className="text-2xl font-bold text-gray-900">You Might Also Like</h2>
             
             <button
-              onClick={onBack}
+              onClick={onViewAll}
               className="hidden sm:flex items-center gap-1 text-sm font-semibold text-gray-900 hover:text-blue-600 hover:gap-2 transition-all"
             >
               View All Products <ArrowRight size={16} />
@@ -183,7 +182,7 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
 
           <div className="mt-8 sm:hidden">
             <button 
-              onClick={onBack}
+              onClick={onViewAll}
               className="w-full flex items-center justify-center gap-2 border border-gray-300 text-gray-900 px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300"
             >
               View All Products <ArrowRight size={16} />
