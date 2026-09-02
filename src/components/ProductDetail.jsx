@@ -2,18 +2,18 @@
 import { useState, useEffect } from "react";
 import { ArrowLeft, Heart, ShoppingCart, Star, Minus, Plus, Lock, ArrowRight } from "lucide-react";
 import { products } from "../data/products";
-import ProductCard from "./ProductCard"; // <-- Import for "You Might Also Like"
+import ProductCard from "./ProductCard";
 
 export default function ProductDetail({ productId, onBack, onAddToCart, onToggleWishlist, wishlist, currency, formatPrice, onCheckout, onViewProduct }) {
   const [quantity, setQuantity] = useState(1);
 
   const product = products.find((p) => p.id === Number(productId));
 
-  // Get 4 other products to show below (exclude the current one)
   const otherProducts = products.filter((p) => p.id !== Number(productId)).slice(0, 4);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // INSTANT jump to top (no animation!)
+    window.scrollTo({ top: 0, behavior: "instant" }); 
     setQuantity(1);
   }, [productId]);
 
@@ -50,7 +50,6 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
 
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           
-          {/* Left Column: Image */}
           <div className="space-y-4">
             <div className="relative aspect-square bg-gray-100 rounded-2xl overflow-hidden">
               {product.badge && (
@@ -66,10 +65,7 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
             </div>
           </div>
 
-          {/* Right Column: Product Info */}
           <div className="space-y-6">
-            
-            {/* Title & Rating */}
             <div>
               <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">{product.name}</h1>
               
@@ -91,7 +87,6 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
               </div>
             </div>
 
-            {/* Price */}
             <div className="flex items-baseline gap-3">
               <span className="text-3xl font-bold text-gray-900">{formatPrice(product.price)}</span>
               {product.originalPrice && (
@@ -99,7 +94,6 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
               )}
             </div>
 
-            {/* Wishlist Button */}
             <button
               onClick={() => onToggleWishlist(product.id)}
               className="flex items-center gap-2 text-sm font-semibold text-gray-700 border border-gray-300 rounded-full px-4 py-2 hover:bg-gray-100 transition-colors"
@@ -108,7 +102,6 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
               {isWishlisted ? "Saved to Wishlist" : "Add to Wishlist"}
             </button>
 
-            {/* Quantity Selector */}
             <div className="flex items-center gap-4">
               <span className="text-sm font-semibold text-gray-900">Quantity:</span>
               <div className="flex items-center gap-3 border border-gray-300 rounded-full px-2 py-1">
@@ -128,9 +121,7 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
               </div>
             </div>
 
-            {/* Buttons: Side-by-side on ALL screens */}
             <div className="flex flex-row gap-2 w-full">
-              
               <button
                 onClick={() => {
                   for (let i = 0; i < quantity; i++) {
@@ -150,7 +141,6 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
               </button>
             </div>
 
-            {/* Description */}
             <div className="border-t border-gray-200 pt-6">
               <h3 className="text-lg font-bold text-gray-900 mb-2">Product Description</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -163,7 +153,7 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
           </div>
         </div>
 
-        {/* "YOU MIGHT ALSO LIKE" SECTION AT THE BOTTOM */}
+        {/* "YOU MIGHT ALSO LIKE" */}
         <div className="mt-16 border-t border-gray-200 pt-10">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900">You Might Also Like</h2>
@@ -186,12 +176,11 @@ export default function ProductDetail({ productId, onBack, onAddToCart, onToggle
                 onAddToCart={onAddToCart}
                 currency={currency}
                 formatPrice={formatPrice}
-                onViewProduct={onViewProduct} // <-- Allows clicking to another product
+                onViewProduct={onViewProduct}
               />
             ))}
           </div>
 
-          {/* Mobile "View All" button */}
           <div className="mt-8 sm:hidden">
             <button 
               onClick={onBack}

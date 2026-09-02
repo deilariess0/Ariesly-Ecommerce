@@ -28,9 +28,9 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // FIXED: Added e.preventDefault() to stop page reload
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulate order placement
     setTimeout(() => {
       setOrderPlaced(true);
       setCart({}); // Empty the cart
@@ -63,7 +63,7 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
     <section className="min-h-screen bg-white pt-10 sm:pt-20 pb-32 sm:pb-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         
-        {/* Back to Shop (Not Home) */}
+        {/* Back to Shop */}
         <button 
           onClick={() => onNavigate("shop")}
           className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-600 mb-8"
@@ -213,7 +213,7 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
 
               <button 
                 type="submit"
-                form="checkout-form" // <-- Connects to the form
+                form="checkout-form"
                 onClick={handleSubmit}
                 className="w-full bg-gray-900 text-white py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors"
               >
@@ -233,7 +233,7 @@ export default function CheckoutPage({ cart, setCart, onNavigate, currency, form
           </div>
           <button 
             type="submit"
-            form="checkout-form" // <-- Connects to the form
+            form="checkout-form"
             onClick={handleSubmit}
             className="flex-1 max-w-xs bg-gray-900 text-white py-3 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors"
           >

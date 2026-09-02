@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useMemo } from "react"; // <-- ADDED useEffect
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -40,9 +40,10 @@ export default function App() {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+  // ⭐ FIX: ALWAYS GO TO THE TOP WHEN THE PAGE FIRST LOADS ⭐
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentPage]);
+  }, []);
 
   const addToCart = (id) => {
     setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
@@ -175,8 +176,8 @@ export default function App() {
           wishlist={wishlist}
           currency={currency}
           formatPrice={formatPrice}
-          onCheckout={() => setCurrentPage("checkout")} // <-- ADDED THIS LINE
-          onViewProduct={handleViewProduct} // <-- ADDED THIS LINE
+          onCheckout={() => setCurrentPage("checkout")}
+          onViewProduct={handleViewProduct}
         />
       ) : currentPage === "about" ? (
         <About onNavigate={setCurrentPage} />
