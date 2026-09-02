@@ -224,6 +224,117 @@ export const products = [
     badge: null,
     category: "Women",
     image: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?q=80&w=600&auto=format&fit=crop"
+  },
+  // --- 10 NEW PRODUCTS ADDED BELOW (ID 21 - 30) ---
+  {
+    id: 21,
+    name: "Vintage Leather Boots",
+    price: 139.99,
+    originalPrice: 169.99,
+    rating: 4.5,
+    reviews: 67,
+    badge: "-18%",
+    category: "Shoes",
+    image: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 22,
+    name: "Canvas Weekender Bag",
+    price: 99.99,
+    originalPrice: null,
+    rating: 4.5,
+    reviews: 51,
+    badge: null,
+    category: "Bags",
+    image: "https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 23,
+    name: "Everyday Cotton Cap",
+    price: 24.99,
+    originalPrice: null,
+    rating: 4,
+    reviews: 120,
+    badge: null,
+    category: "Accessories",
+    image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 24,
+    name: "Fitted Denim Jeans",
+    price: 64.99,
+    originalPrice: 79.99,
+    rating: 4.5,
+    reviews: 88,
+    badge: "-19%",
+    category: "Men",
+    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 25,
+    name: "Cozy Knit Cardigan",
+    price: 74.99,
+    originalPrice: null,
+    rating: 4.5,
+    reviews: 45,
+    badge: null,
+    category: "Women",
+    image: "https://images.unsplash.com/photo-1509319117193-57bab727e09d?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 26,
+    name: "Stainless Steel Water Bottle",
+    price: 29.99,
+    originalPrice: null,
+    rating: 5,
+    reviews: 210,
+    badge: null,
+    category: "Accessories",
+    image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 27,
+    name: "Classic Loafers",
+    price: 89.99,
+    originalPrice: null,
+    rating: 4.5,
+    reviews: 63,
+    badge: null,
+    category: "Shoes",
+    image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 28,
+    name: "Tech Backpack with USB Port",
+    price: 79.99,
+    originalPrice: 99.99,
+    rating: 4.5,
+    reviews: 95,
+    badge: "-20%",
+    category: "Bags",
+    image: "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 29,
+    name: "Elegant Evening Gown",
+    price: 189.99,
+    originalPrice: 229.99,
+    rating: 5,
+    reviews: 32,
+    badge: "-17%",
+    category: "Women",
+    image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600&auto=format&fit=crop"
+  },
+  {
+    id: 30,
+    name: "Minimalist Business Suit",
+    price: 249.99,
+    originalPrice: null,
+    rating: 4.5,
+    reviews: 28,
+    badge: null,
+    category: "Men",
+    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop"
   }
 ];
 
