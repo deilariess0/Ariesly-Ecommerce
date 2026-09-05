@@ -129,7 +129,7 @@ export default function Hero({ onNavigate }) {
       </div>
 
       {/* Slider Dots - Located at the bottom left/center to navigate manually */}
-      <div className="relative flex justify-center gap-2 pb-8">
+      <div className="relative flex justify-center gap-2 pb-10">
         {slides.map((_, index) => (
           <button
             key={index}

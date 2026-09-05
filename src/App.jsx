@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import Features from "./components/Features";
 import FeaturedProducts from "./components/FeaturedProducts";
 import PromoBanners from "./components/PromoBanners";
-import Testimonials from "./components/Testimonials";
+// REMOVED: import Testimonials from "./components/Testimonials";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import ShopPage from "./components/ShopPage";
@@ -26,7 +26,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [selectedCategory, setSelectedCategory] = useState("All");
   
-  // NEW: State for Product Detail Page
+  // State for Product Detail Page
   const [selectedProductId, setSelectedProductId] = useState(null);
   
   // State for search
@@ -40,9 +40,9 @@ export default function App() {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // ⭐ FIX: ALWAYS GO TO THE TOP WHENEVER THE PAGE CHANGES ⭐
+  // Go to top whenever page changes
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" }); // Changed to 'instant' for consistency
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [currentPage]);
 
   const addToCart = (id) => {
@@ -149,7 +149,7 @@ export default function App() {
             onViewProduct={handleViewProduct}
           />
           <PromoBanners />
-          <Testimonials />
+          {/* REMOVED: <Testimonials /> */}
           <Newsletter />
         </>
       ) : currentPage === "shop" ? (
@@ -224,6 +224,7 @@ export default function App() {
         formatPrice={formatPrice}
       />
 
+      {/* KEEPING THE CUSTOMER PROFILE */}
       <CustomerProfile 
         isOpen={isProfileOpen} 
         onClose={() => setIsProfileOpen(false)} 

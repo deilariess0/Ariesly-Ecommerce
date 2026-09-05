@@ -1,6 +1,6 @@
 // src/data/products.js
 
-// Import the local image from the components folder
+// Import the local image from the components folder (KEEP THIS - used for profile)
 import image2 from "../components/assets/image2.png";
 
 export const products = [
@@ -335,27 +335,5 @@ export const products = [
     badge: null,
     category: "Men",
     image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop"
-  }
-];
-
-// Testimonial data
-export const testimonials = [
-  {
-    name: "Jane Cooper",
-    initials: "JC",
-    quote: "Great quality products and fast shipping! Highly recommended.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop"
-  },
-  {
-    name: "Deil Aries Santos",
-    initials: "DS",
-    quote: "Amazing customer service and easy shopping experience.",
-    image: image2 
-  },
-  {
-    name: "Esther Howard",
-    initials: "EH",
-    quote: "I love the variety and the prices are unbeatable!",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop"
   }
 ];
